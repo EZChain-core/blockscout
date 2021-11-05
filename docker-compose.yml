@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+  postgres:
+    container_name: postgres_container
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      PGDATA: /data/postgres
+    volumes:
+       - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+  
+  blockscout:
+    container_name: blockscout
+    build: .
+    command: >
+      bash -c "mix do ecto.create && mix do ecto.migrate && mix phx.server"
+    env_file:
+      - .env
+    ports:
+      - "4000:4000"
+    links:
+      - postgres:postgres
+    depends_on:
+      - postgres
+    networks:
+      - postgres
+    restart: unless-stopped
+
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+    postgres:

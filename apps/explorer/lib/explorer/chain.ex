@@ -653,6 +653,8 @@ defmodule Explorer.Chain do
   @spec balance(Address.t(), :wei) :: Wei.wei() | nil
   @spec balance(Address.t(), :gwei) :: Wei.gwei() | nil
   @spec balance(Address.t(), :ether) :: Wei.ether() | nil
+  @spec balance(Address.t(), :avalanceh) :: Wei.avalanche() | nil
+  @spec balance(Address.t(), :navalanceh) :: Wei.navalanche() | nil
   def balance(%Address{fetched_coin_balance: balance}, unit) do
     case balance do
       nil -> nil
@@ -802,7 +804,7 @@ defmodule Explorer.Chain do
         select:
           sum(
             fragment(
-              "CASE 
+              "CASE
                 WHEN ? = 0 THEN 0
                 WHEN ? < ? THEN ?
                 ELSE ? END",
@@ -1021,7 +1023,7 @@ defmodule Explorer.Chain do
       {:actual, Decimal.new(4)}
 
   """
-  @spec fee(%Transaction{gas_used: nil}, :ether | :gwei | :wei) :: {:maximum, Decimal.t()}
+  @spec fee(%Transaction{gas_used: nil}, :ether | :gwei | :wei | :avalanche | :navalanche) :: {:maximum, Decimal.t()}
   def fee(%Transaction{gas: gas, gas_price: gas_price, gas_used: nil}, unit) do
     fee =
       gas_price
@@ -1031,7 +1033,7 @@ defmodule Explorer.Chain do
     {:maximum, fee}
   end
 
-  @spec fee(%Transaction{gas_used: Decimal.t()}, :ether | :gwei | :wei) :: {:actual, Decimal.t()}
+  @spec fee(%Transaction{gas_used: Decimal.t()}, :ether | :gwei | :wei | :avalanche | :navalanche) :: {:actual, Decimal.t()}
   def fee(%Transaction{gas_price: gas_price, gas_used: gas_used}, unit) do
     fee =
       gas_price
@@ -2946,7 +2948,7 @@ defmodule Explorer.Chain do
           right_join:
             missing_range in fragment(
               """
-                (SELECT b1.number 
+                (SELECT b1.number
                 FROM generate_series(0, (?)::integer) AS b1(number)
                 WHERE NOT EXISTS
                   (SELECT 1 FROM blocks b2 WHERE b2.number=b1.number AND b2.consensus))
@@ -3033,7 +3035,7 @@ defmodule Explorer.Chain do
         right_join:
           missing_range in fragment(
             """
-              (SELECT distinct b1.number 
+              (SELECT distinct b1.number
               FROM generate_series((?)::integer, (?)::integer) AS b1(number)
               WHERE NOT EXISTS
                 (SELECT 1 FROM blocks b2 WHERE b2.number=b1.number AND b2.consensus))
@@ -3726,10 +3728,14 @@ defmodule Explorer.Chain do
   """
   @spec value(InternalTransaction.t(), :wei) :: Wei.wei()
   @spec value(InternalTransaction.t(), :gwei) :: Wei.gwei()
+  @spec value(InternalTransaction.t(), :avalanche) :: Wei.avalanche()
+  @spec value(InternalTransaction.t(), :navalanche) :: Wei.navalanche()
   @spec value(InternalTransaction.t(), :ether) :: Wei.ether()
   @spec value(Transaction.t(), :wei) :: Wei.wei()
   @spec value(Transaction.t(), :gwei) :: Wei.gwei()
   @spec value(Transaction.t(), :ether) :: Wei.ether()
+  @spec value(Transaction.t(), :avalanche) :: Wei.avalanche()
+  @spec value(Transaction.t(), :navalanche) :: Wei.navalanche()
   def value(%type{value: value}, unit) when type in [InternalTransaction, Transaction] do
     Wei.to(value, unit)
   end
@@ -3943,7 +3949,7 @@ defmodule Explorer.Chain do
   Updates a `t:SmartContract.t/0`.
 
   Has the similar logic as create_smart_contract/1.
-  Used in cases when you need to update row in DB contains SmartContract, e.g. in case of changing 
+  Used in cases when you need to update row in DB contains SmartContract, e.g. in case of changing
   status `partially verified` to `fully verified` (re-verify).
   """
   @spec update_smart_contract(map()) :: {:ok, SmartContract.t()} | {:error, Ecto.Changeset.t()}
@@ -4975,7 +4981,7 @@ defmodule Explorer.Chain do
 
   # Fetches custom metadata for bridged tokens from the node.
   # Currently, gets Balancer token composite tokens with their weights
-  # from foreign chain 
+  # from foreign chain
   defp get_bridged_token_custom_metadata(foreign_token_address_hash, json_rpc_named_arguments, foreign_json_rpc)
        when not is_nil(foreign_json_rpc) and foreign_json_rpc !== "" do
     eth_call_foreign_json_rpc_named_arguments =

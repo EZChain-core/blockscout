@@ -1,0 +1,43 @@
+{
+    "version": "2.0.0",
+    "command": "mix",
+    // "isShellCommand": true,
+    "showoutput": "always",
+    "suppresstaskname": true,
+    "tasks": [
+      {
+        "label": "deps.compile",
+        "type": "shell",
+        "args": [
+          "deps.compile"
+        ],
+        "problemMatcher": [
+          "$mixCompileError",
+          "$mixCompileWarning"
+        ]
+      },
+      {
+        "label": "phx.server",
+        "type": "shell",
+        "args": [
+          "phx.server"
+        ],
+        "problemMatcher": [
+          "$mixCompileError",
+          "$mixCompileWarning"
+        ],
+      },
+      {
+        "label": "test",
+        "type": "shell",
+        "args": [
+          "test"
+        ],
+        "problemMatcher": [
+          "$mixCompileError",
+          "$mixCompileWarning",
+          "$mixTestFailure"
+        ],
+      }
+    ]
+  }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/deps/absinthe_plug" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/deps/accept/_build/default/plugins/rebar3_elvis_plugin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/deps/briefly" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/deps/libsecp256k1/c_src/secp256k1" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/deps/prometheus_process_collector/_build/default/plugins/rebar3_elvis_plugin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/deps/wobserver" vcs="Git" />
+  </component>
+</project>

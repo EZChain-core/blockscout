@@ -47,7 +47,7 @@ defmodule Indexer.Block.Catchup.BoundIntervalSupervisor do
   @spec start_link(named_arguments :: map()) :: {:ok, pid}
   @spec start_link(named_arguments :: %{}, GenServer.options()) :: {:ok, pid}
   def start_link(named_arguments, gen_server_options \\ [])
-      when is_map(named_arguments) and is_list(gen_server_options) do
+       when is_map(named_arguments) and is_list(gen_server_options) do
     GenServer.start_link(__MODULE__, named_arguments, gen_server_options)
   end
 
@@ -63,6 +63,7 @@ defmodule Indexer.Block.Catchup.BoundIntervalSupervisor do
   end
 
   defp new(%{block_fetcher: common_block_fetcher} = named_arguments) do
+
     block_fetcher = %Block.Fetcher{common_block_fetcher | broadcast: :catchup, callback_module: Catchup.Fetcher}
 
     block_interval = Map.get(named_arguments, :block_interval, @block_interval)
@@ -180,7 +181,7 @@ defmodule Indexer.Block.Catchup.BoundIntervalSupervisor do
   @impl GenServer
   def handle_info(:catchup_index, %__MODULE__{fetcher: %Catchup.Fetcher{} = catchup} = state) do
     {:noreply,
-     %__MODULE__{state | task: Task.Supervisor.async_nolink(Catchup.TaskSupervisor, Catchup.Fetcher, :task, [catchup])}}
+      %__MODULE__{state | task: Task.Supervisor.async_nolink(Catchup.TaskSupervisor, Catchup.Fetcher, :task, [catchup])}}
   end
 
   def handle_info(
@@ -294,6 +295,13 @@ defmodule Indexer.Block.Catchup.BoundIntervalSupervisor do
 
     send(self(), :catchup_index)
 
+    {:noreply, %__MODULE__{state | task: nil}}
+  end
+
+  def handle_info(
+        err, state
+      ) do
+    Logger.error(fn -> "Catchup error (#{inspect(err)}). Restarting" end)
     {:noreply, %__MODULE__{state | task: nil}}
   end
 end

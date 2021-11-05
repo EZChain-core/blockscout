@@ -28,7 +28,7 @@ defmodule BlockScoutWeb.API.RPC.StatsController do
     wei_total_supply =
       Chain.total_supply()
       |> Decimal.new()
-      |> Wei.from(:ether)
+      |> Wei.from(:avalanche)
       |> Wei.to(:wei)
       |> Decimal.to_string()
 
@@ -53,7 +53,7 @@ defmodule BlockScoutWeb.API.RPC.StatsController do
 
     cached_coin_total_supply =
       %Wei{value: Decimal.new(coin_total_supply_wei)}
-      |> Wei.to(:ether)
+      |> Wei.to(:avalanche)
       |> Decimal.to_string(:normal)
 
     render(conn, "coinsupply.json", total_supply: cached_coin_total_supply)

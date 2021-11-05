@@ -27,7 +27,7 @@ export async function makeContractCall (call, store, gasLimit, callbackFunc) {
     return callbackFunc('Web3 is undefined. Please, contact support.')
   }
 
-  const gasPrice = web3.utils.toWei('20', 'gwei')
+  const gasPrice = web3.utils.toWei('20', 'navalanche')
 
   if (!gasLimit) {
     try {

@@ -8,6 +8,7 @@ defmodule Indexer.MixProject do
       build_path: "../../_build",
       config_path: "../../config/config.exs",
       deps: deps(),
+      elixirc_options: [warnings_as_errors: false],
       deps_path: "../../deps",
       description: "Fetches block chain data from on-chain node for later reading with Explorer.",
       elixir: "~> 1.10",

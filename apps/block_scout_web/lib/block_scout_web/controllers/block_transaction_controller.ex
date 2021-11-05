@@ -33,6 +33,7 @@ defmodule BlockScoutWeb.BlockTransactionController do
 
         {transactions, next_page} = split_list_by_page(transactions_plus_one)
 
+
         next_page_path =
           case next_page_params(next_page, transactions, params) do
             nil ->
@@ -68,6 +69,8 @@ defmodule BlockScoutWeb.BlockTransactionController do
             )
           end)
 
+
+
         json(
           conn,
           %{
@@ -94,6 +97,7 @@ defmodule BlockScoutWeb.BlockTransactionController do
   end
 
   def index(conn, %{"block_hash_or_number" => formatted_block_hash_or_number}) do
+    require IEx;Ether
     case param_block_hash_or_number_to_block(formatted_block_hash_or_number,
            necessity_by_association: %{
              [miner: :names] => :required,

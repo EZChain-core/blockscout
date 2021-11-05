@@ -34,6 +34,7 @@ config :logger,
     {LoggerFileBackend, :empty_blocks_to_refetch}
   ]
 
+
 config :logger, :console,
   # Use same format for all loggers, even though the level should only ever be `:error` for `:error` backend
   format: "$dateT$time $metadata[$level] $message\n",

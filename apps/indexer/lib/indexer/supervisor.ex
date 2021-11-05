@@ -1,4 +1,5 @@
 defmodule Indexer.Supervisor do
+  @compile :nowarn_unused_vars
   @moduledoc """
   Supervisor of all indexer worker supervision trees
   """

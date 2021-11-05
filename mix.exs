@@ -16,14 +16,15 @@ defmodule BlockScout.Mixfile do
         credo: :test,
         dialyzer: :test
       ],
+      elixirc_options: [warnings_as_errors: false],
       start_permanent: Mix.env() == :prod,
       releases: [
         blockscout: [
           applications: [
             block_scout_web: :permanent,
-            ethereum_jsonrpc: :permanent,
-            explorer: :permanent,
-            indexer: :permanent
+            #ethereum_jsonrpc: :permanent,
+            #explorer: :permanent,
+            #indexer: :permanent
           ]
         ]
       ]
@@ -78,7 +79,8 @@ defmodule BlockScout.Mixfile do
       {:tesla, "~> 1.3.3"},
       # Documentation
       {:ex_doc, "~> 0.25.2", only: :dev, runtime: false},
-      {:number, "~> 1.0.3"}
+      {:number, "~> 1.0.3"},
+      {:libsecp256k1, "~> 0.1.10"}
     ]
   end
 end

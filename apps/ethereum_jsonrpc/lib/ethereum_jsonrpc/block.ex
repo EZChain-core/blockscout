@@ -568,11 +568,12 @@ defmodule EthereumJSONRPC.Block do
 
   """
   def to_elixir(block) when is_map(block) do
+    # block_avax = Enum.filter(block, fn {k, _} -> k not in ~w(extDataHash blockExtraData blockGasCost extDataGasUsed) end) |> Map.new
     Enum.into(block, %{}, &entry_to_elixir/1)
   end
 
   defp entry_to_elixir({key, quantity})
-       when key in ~w(difficulty gasLimit gasUsed minimumGasPrice baseFeePerGas number size cumulativeDifficulty totalDifficulty paidFees) and
+       when key in ~w(extDataGasUsed blockGasCost difficulty gasLimit gasUsed minimumGasPrice baseFeePerGas number size cumulativeDifficulty totalDifficulty paidFees) and
               not is_nil(quantity) do
     {key, quantity_to_integer(quantity)}
   end
@@ -586,7 +587,7 @@ defmodule EthereumJSONRPC.Block do
   # `t:EthereumJSONRPC.address/0` and `t:EthereumJSONRPC.hash/0` pass through as `Explorer.Chain` can verify correct
   # hash format
   defp entry_to_elixir({key, _} = entry)
-       when key in ~w(author extraData hash logsBloom miner mixHash nonce parentHash receiptsRoot sealFields sha3Uncles
+       when key in ~w(extDataHash blockExtraData author extraData hash logsBloom miner mixHash nonce parentHash receiptsRoot sealFields sha3Uncles
                      signature stateRoot step transactionsRoot uncles bitcoinMergedMiningCoinbaseTransaction bitcoinMergedMiningHeader bitcoinMergedMiningMerkleProof hashForMergedMining committedSeals committee pastCommittedSeals proposerSeal round),
        do: entry
 

@@ -33,7 +33,7 @@ defmodule Indexer.Block.Catchup.Fetcher do
   # DO NOT use them directly in the code.  Get options from `state`.
 
   @blocks_batch_size 10
-  @blocks_concurrency 10
+  @blocks_concurrency 2
   @sequence_name :block_catchup_sequencer
 
   defstruct blocks_batch_size: @blocks_batch_size,
@@ -79,12 +79,12 @@ defmodule Indexer.Block.Catchup.Fetcher do
 
         _ ->
           # realtime indexer gets the current latest block
-          first = latest_block_number - 1
+           first = latest_block_number - 1
           last = last_block()
 
           Logger.metadata(first_block_number: first, last_block_number: last)
 
-          missing_ranges = Chain.missing_block_number_ranges(first..last)
+             missing_ranges = Chain.missing_block_number_ranges(first..last)
 
           range_count = Enum.count(missing_ranges)
 

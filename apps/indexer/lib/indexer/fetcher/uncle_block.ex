@@ -22,9 +22,9 @@ defmodule Indexer.Fetcher.UncleBlock do
   @behaviour BufferedTask
 
   @defaults [
-    flush_interval: :timer.seconds(3),
+    flush_interval: :timer.seconds(30),
     max_batch_size: 10,
-    max_concurrency: 10,
+    max_concurrency: 2,
     task_supervisor: Indexer.Fetcher.UncleBlock.TaskSupervisor,
     metadata: [fetcher: :block_uncle]
   ]

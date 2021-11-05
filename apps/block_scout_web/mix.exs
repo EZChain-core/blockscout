@@ -32,9 +32,10 @@ defmodule BlockScoutWeb.Mixfile do
   #
   # Type `mix help compile.app` for more information.
   def application do
+    # []
     [
-      mod: {BlockScoutWeb.Application, []},
-      extra_applications: extra_applications()
+     mod: {BlockScoutWeb.Application, []},
+     extra_applications: extra_applications()
     ]
   end
 

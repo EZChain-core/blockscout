@@ -1,3 +1,5 @@
+require Logger
+
 defmodule EthereumJSONRPC do
   @moduledoc """
   Ethereum JSONRPC client.
@@ -379,7 +381,6 @@ defmodule EthereumJSONRPC do
     transport = Keyword.fetch!(named_arguments, :transport)
     transport_options = Keyword.fetch!(named_arguments, :transport_options)
     throttle_timeout = Keyword.get(named_arguments, :throttle_timeout, @default_throttle_timeout)
-
     RequestCoordinator.perform(request, transport, transport_options, throttle_timeout)
   end
 
@@ -479,7 +480,6 @@ defmodule EthereumJSONRPC do
   defp fetch_blocks_by_params(params, request, json_rpc_named_arguments)
        when is_list(params) and is_function(request, 1) do
     id_to_params = id_to_params(params)
-
     with {:ok, responses} <-
            id_to_params
            |> Blocks.requests(request)

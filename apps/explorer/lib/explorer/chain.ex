@@ -655,6 +655,8 @@ defmodule Explorer.Chain do
   @spec balance(Address.t(), :ether) :: Wei.ether() | nil
   @spec balance(Address.t(), :avalanceh) :: Wei.avalanche() | nil
   @spec balance(Address.t(), :navalanceh) :: Wei.navalanche() | nil
+  @spec balance(Address.t(), :avalanceh) :: Wei.roi() | nil
+  @spec balance(Address.t(), :navalanceh) :: Wei.wroi() | nil
   def balance(%Address{fetched_coin_balance: balance}, unit) do
     case balance do
       nil -> nil
@@ -1023,7 +1025,7 @@ defmodule Explorer.Chain do
       {:actual, Decimal.new(4)}
 
   """
-  @spec fee(%Transaction{gas_used: nil}, :ether | :gwei | :wei | :avalanche | :navalanche) :: {:maximum, Decimal.t()}
+  @spec fee(%Transaction{gas_used: nil}, :ether | :gwei | :wei | :avalanche | :navalanche | :roi | :wroi) :: {:maximum, Decimal.t()}
   def fee(%Transaction{gas: gas, gas_price: gas_price, gas_used: nil}, unit) do
     fee =
       gas_price
@@ -1033,7 +1035,7 @@ defmodule Explorer.Chain do
     {:maximum, fee}
   end
 
-  @spec fee(%Transaction{gas_used: Decimal.t()}, :ether | :gwei | :wei | :avalanche | :navalanche) :: {:actual, Decimal.t()}
+  @spec fee(%Transaction{gas_used: Decimal.t()}, :ether | :gwei | :wei | :avalanche | :navalanche | :roi | :wroi) :: {:actual, Decimal.t()}
   def fee(%Transaction{gas_price: gas_price, gas_used: gas_used}, unit) do
     fee =
       gas_price
@@ -3730,12 +3732,16 @@ defmodule Explorer.Chain do
   @spec value(InternalTransaction.t(), :gwei) :: Wei.gwei()
   @spec value(InternalTransaction.t(), :avalanche) :: Wei.avalanche()
   @spec value(InternalTransaction.t(), :navalanche) :: Wei.navalanche()
+  @spec value(InternalTransaction.t(), :roi) :: Wei.roi()
+  @spec value(InternalTransaction.t(), :wroi) :: Wei.wroi()
   @spec value(InternalTransaction.t(), :ether) :: Wei.ether()
   @spec value(Transaction.t(), :wei) :: Wei.wei()
   @spec value(Transaction.t(), :gwei) :: Wei.gwei()
   @spec value(Transaction.t(), :ether) :: Wei.ether()
   @spec value(Transaction.t(), :avalanche) :: Wei.avalanche()
   @spec value(Transaction.t(), :navalanche) :: Wei.navalanche()
+  @spec value(Transaction.t(), :roi) :: Wei.roi()
+  @spec value(Transaction.t(), :wroi) :: Wei.wroi()
   def value(%type{value: value}, unit) when type in [InternalTransaction, Transaction] do
     Wei.to(value, unit)
   end

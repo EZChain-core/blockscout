@@ -111,7 +111,7 @@ defmodule BlockScoutWeb.AddressView do
   def balance(%Address{fetched_coin_balance: nil}), do: ""
 
   def balance(%Address{fetched_coin_balance: balance}) do
-    format_wei_value(balance, :avalanche)
+    format_wei_value(balance, :roi)
   end
 
   def balance_percentage_enabled?(total_supply) do
@@ -134,7 +134,7 @@ defmodule BlockScoutWeb.AddressView do
   def balance_percentage(%Address{fetched_coin_balance: balance}, total_supply) do
     if Decimal.cmp(total_supply, 0) == :gt do
       balance
-      |> Wei.to(:avalanche)
+      |> Wei.to(:roi)
       |> Decimal.div(Decimal.new(total_supply))
       |> Decimal.mult(100)
       |> Decimal.round(4)
@@ -142,7 +142,7 @@ defmodule BlockScoutWeb.AddressView do
       |> Kernel.<>("% #{gettext("Market Cap")}")
     else
       balance
-      |> Wei.to(:avalanche)
+      |> Wei.to(:roi)
       |> Decimal.to_string(:normal)
     end
   end

@@ -108,10 +108,14 @@ defmodule Explorer.Chain.Wei do
 
   @type navalanche :: Decimal.t()
 
+  @type roi :: Decimal.t()
+
+  @type wroi :: Decimal.t()
+
   @typedoc """
   The unit to convert `t:wei/0` to.
   """
-  @type unit :: :wei | :gwei | :ether | :avalanche | :navalanche
+  @type unit :: :wei | :gwei | :ether | :avalanche | :navalanche | :roi | :wroi
 
   @typedoc """
   The smallest fractional unit of Ether.
@@ -127,6 +131,8 @@ defmodule Explorer.Chain.Wei do
   @wei_per_gwei Decimal.new(1_000_000_000)
   @wei_per_avalanche Decimal.new(1_000_000_000_000_000_000)
   @wei_per_navalanche Decimal.new(1_000_000_000)
+  @wei_per_roi Decimal.new(1_000_000_000_000_000_000)
+  @wei_per_wroi Decimal.new(1_000_000_000)
 
 
   @spec hex_format(Wei.t()) :: String.t()
@@ -243,6 +249,16 @@ defmodule Explorer.Chain.Wei do
     %__MODULE__{value: Decimal.mult(navalanche, @wei_per_navalanche)}
   end
 
+  @spec from(roi(), :roi) :: t()
+  def from(%Decimal{} = roi, :roi) do
+    %__MODULE__{value: Decimal.mult(roi, @wei_per_roi)}
+  end
+
+  @spec from(wroi(), :wroi) :: t()
+  def from(%Decimal{} = wroi, :wroi) do
+    %__MODULE__{value: Decimal.mult(wroi, @wei_per_wroi)}
+  end
+
   @doc """
   Converts a `Wei` value to another denomination of wei represented in `Decimal`.
 
@@ -290,6 +306,16 @@ defmodule Explorer.Chain.Wei do
   @spec to(t(), :navalanche) :: navalanche()
   def to(%__MODULE__{value: wei}, :navalanche) do
     Decimal.div(wei, @wei_per_navalanche)
+  end
+
+  @spec to(t(), :roi) :: roi()
+  def to(%__MODULE__{value: wei}, :roi) do
+    Decimal.div(wei, @wei_per_roi)
+  end
+
+  @spec to(t(), :wroi) :: wroi()
+  def to(%__MODULE__{value: wei}, :wroi) do
+    Decimal.div(wei, @wei_per_wroi)
   end
 
 end

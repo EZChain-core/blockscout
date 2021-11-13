@@ -6,7 +6,7 @@
         %Decimal{} ->
             if wei_value do
                 %Wei{value: Decimal.new(wei_value)}
-                |> Wei.to(:avalanche)
+                |> Wei.to(:roi)
                 |> Decimal.mult(@exchange_rate.usd_value)
             else
                 Decimal.new(0)

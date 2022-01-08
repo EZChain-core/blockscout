@@ -10,7 +10,7 @@ defmodule BlockScoutWeb.LayoutView do
   @issue_url "https://github.com/blockscout/blockscout/issues/new"
   @default_other_networks [
     %{
-      title: "ROIChain",
+      title: "EZChain",
       url: "http://127.0.0.1:4000"
     }
     # %{
@@ -54,11 +54,11 @@ defmodule BlockScoutWeb.LayoutView do
   end
 
   def subnetwork_title do
-    Keyword.get(application_config(), :subnetwork) || "ROIChain" #"Sokol"
+    Keyword.get(application_config(), :subnetwork) || "EZChain" #"Sokol"
   end
 
   def network_title do
-    Keyword.get(application_config(), :network) || "ROIChain" #"POA"
+    Keyword.get(application_config(), :network) || "EZChain" #"POA"
   end
 
   defp application_config do

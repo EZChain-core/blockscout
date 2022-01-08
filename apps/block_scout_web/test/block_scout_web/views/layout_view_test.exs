@@ -33,7 +33,7 @@ defmodule BlockScoutWeb.LayoutViewTest do
     end
 
     test "use the default subnetwork title when there is no env configured for it" do
-      assert LayoutView.subnetwork_title() == "ROIChain" #"Sokol"
+      assert LayoutView.subnetwork_title() == "EZChain" #"Sokol"
     end
   end
 

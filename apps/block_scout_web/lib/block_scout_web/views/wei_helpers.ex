@@ -78,6 +78,6 @@ defmodule BlockScoutWeb.WeiHelpers do
   defp display_unit(:ether), do: gettext("Ether")
   defp display_unit(:avalanche), do: gettext("AVAX")
   defp display_unit(:navalanche), do: gettext("nAVAX")
-  defp display_unit(:roi), do: gettext("ROI")
-  defp display_unit(:wroi), do: gettext("wROI")
+  defp display_unit(:roi), do: gettext("EZC")
+  defp display_unit(:wroi), do: gettext("wEZC")
 end

@@ -10,7 +10,7 @@ defmodule BlockScoutWeb.LayoutView do
   @issue_url "https://github.com/blockscout/blockscout/issues/new"
   @default_other_networks [
     %{
-      title: "EZChain",
+      title: "CChain",
       url: "http://127.0.0.1:4000"
     }
     # %{

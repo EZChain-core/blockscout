@@ -83,7 +83,7 @@ config :block_scout_web, BlockScoutWeb.SocialMedia,
 
 # Configures History
 price_chart_config =
-  if System.get_env("SHOW_PRICE_CHART", "true") != "false" do
+  if System.get_env("SHOW_PRICE_CHART", "false") != "false" do
     %{market: [:price, :market_cap]}
   else
     %{}

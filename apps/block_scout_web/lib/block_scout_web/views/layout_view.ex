@@ -11,7 +11,7 @@ defmodule BlockScoutWeb.LayoutView do
   @default_other_networks [
     %{
       title: "CChain",
-      url: "http://127.0.0.1:4000"
+      url: "https://cchain-explorer.ezchain.com"
     }
     # %{
     #   title: "POA",

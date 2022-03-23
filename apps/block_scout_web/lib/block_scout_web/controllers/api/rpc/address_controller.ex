@@ -165,7 +165,12 @@ defmodule BlockScoutWeb.API.RPC.AddressController do
          {:format, {:ok, address_hash}} <- to_address_hash(address_param),
          {:contract_address, {:ok, contract_address_hash}} <- to_contract_address_hash(params["contractaddress"]),
          {:ok, token_transfers} <- list_token_transfers(address_hash, contract_address_hash, options) do
-      render(conn, :tokentx, %{token_transfers: token_transfers})
+      cond do
+        Map.has_key?( params, "txHash" ) ->
+          render(conn, :tokentx, %{token_transfers: token_transfers |> Enum.filter(fn(item) -> to_string(item[:transaction_hash]) == params["txHash"] end)})
+        true ->
+          render(conn, :tokentx, %{token_transfers: token_transfers})
+      end
     else
       {:address_param, :error} ->
         render(conn, :error, error: "Query parameter address is required")

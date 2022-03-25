@@ -4,6 +4,7 @@ defmodule BlockScoutWeb.API.RPC.RPCView do
   def render("show.json", %{data: data}) do
     %{
       "status" => "1",
+      "success" => :true,
       "message" => "OK",
       "result" => data
     }
@@ -20,6 +21,7 @@ defmodule BlockScoutWeb.API.RPC.RPCView do
   def render("error.json", %{error: message} = assigns) do
     %{
       "status" => "0",
+      "success" => :false,
       "message" => message,
       "result" => Map.get(assigns, :data)
     }

@@ -134,7 +134,7 @@
                     "data-test": "transaction_hash_link"
                   ) %>
                 <% else %>
-                  <%= if to_string(@address.smart_contract.address_hash) === "0x0000000000000000000000000000000000000000" do %>
+                  <%= if to_string(@address.smart_contract.address_hash) === "0x0000000000000000000000000000000000000000" || to_string(@address.smart_contract.address_hash) === "0x5555555555555555555555555555555555555555" do %>
                     <%= link(
                       trimmed_hash(@address.smart_contract.address_hash),
                       to: address_path(@conn, :show, @address.smart_contract.address_hash)

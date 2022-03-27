@@ -35,7 +35,6 @@ defmodule Explorer.ExchangeRates.Source do
           result_formatted =
             result
             |> source.format_data()
-
           {:ok, result_formatted}
         else
           resp
@@ -87,7 +86,11 @@ defmodule Explorer.ExchangeRates.Source do
 
   @spec config(atom()) :: term
   defp config(key) do
-    Application.get_env(:explorer, __MODULE__, [])[key]
+    if Application.get_env(:explorer, :enable_ezc) do
+      Explorer.ExchangeRates.Source.EZC
+    else
+      Application.get_env(:explorer, __MODULE__, [])[key]
+    end
   end
 
   def http_request(source_url) do

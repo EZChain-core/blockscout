@@ -22,7 +22,11 @@ config :explorer,
       do: Explorer.Chain.Events.SimpleSender,
       else: Explorer.Chain.Events.DBSender
     ),
-  enabled_1559_support: System.get_env("ENABLE_1559_SUPPORT") == "true"
+  enabled_1559_support: System.get_env("ENABLE_1559_SUPPORT") == "true",
+  enable_ezc: System.get_env("ENABLE_EZC") || false,
+  ezc_market_url: System.get_env("EZC_MARKET_URL"),
+  ezc_coin_symbol_id: System.get_env("EZC_COIN_SYMBOL_ID")
+
 
 config :explorer, Explorer.Counters.AverageBlockTime,
   enabled: true,

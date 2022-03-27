@@ -98,7 +98,6 @@ defmodule Explorer.Market do
 
     if bridged_prop do
       bridged_token = Repo.get_by(BridgedToken, home_token_contract_address_hash: token.contract_address_hash)
-
       if bridged_token do
         if bridged_token.foreign_chain_id do
           if Decimal.cmp(bridged_token.foreign_chain_id, Decimal.new(1)) == :eq, do: bridged_token, else: false

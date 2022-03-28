@@ -89,6 +89,7 @@ defmodule Indexer.Fetcher.CoinBalance do
 
     unique_filtered_entries
     |> Enum.map(&entry_to_params/1)
+    # |> Enum.filter(&ignore_zero_address/1)
     |> EthereumJSONRPC.fetch_balances(json_rpc_named_arguments)
     |> case do
       {:ok, fetched_balances} ->
@@ -101,9 +102,9 @@ defmodule Indexer.Fetcher.CoinBalance do
           end,
           error_count: unique_entry_count
         )
-
         {:retry, unique_filtered_entries}
     end
+    # end
   end
 
   defp first_block_to_index do
@@ -113,6 +114,17 @@ defmodule Indexer.Fetcher.CoinBalance do
       {integer, ""} -> integer
       _ -> 0
     end
+  end
+
+  defp ignore_zero_address(%{
+    code: -32000,
+    data: %{
+      block_quantity: _,
+      hash_data: _
+    },
+    message: message
+  }) do
+    not String.contains? message, "missing trie node"
   end
 
   defp entry_to_params({address_hash_bytes, block_number}) when is_integer(block_number) do
@@ -238,12 +250,11 @@ defmodule Indexer.Fetcher.CoinBalance do
     with {:ok, imported} <- import_fetched_balances(fetched_balances) do
       Accounts.drop(imported[:addresses])
     end
-
-    retry(errors)
+    error_filters = errors |> Enum.filter(&ignore_zero_address/1)
+    retry(error_filters)
   end
 
   defp retry([]), do: :ok
-
   defp retry(errors) when is_list(errors) do
     retried_entries = fetched_balances_errors_to_entries(errors)
 

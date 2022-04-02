@@ -22,7 +22,7 @@ defmodule Explorer.Application do
     Uncles
   }
 
-  alias Explorer.Chain.Supply.RSK
+  alias Explorer.Chain.Supply.{RSK, EZC}
 
   alias Explorer.Market.MarketHistoryCache
   alias Explorer.Repo.PrometheusLogger
@@ -60,6 +60,7 @@ defmodule Explorer.Application do
       BlockNumber,
       con_cache_child_spec(MarketHistoryCache.cache_name()),
       con_cache_child_spec(RSK.cache_name(), ttl_check_interval: :timer.minutes(1), global_ttl: :timer.minutes(30)),
+      con_cache_child_spec(EZC.cache_name(), ttl_check_interval: :timer.minutes(1), global_ttl: :timer.minutes(30)),
       Transactions,
       Accounts,
       Uncles,

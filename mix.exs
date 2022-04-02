@@ -22,9 +22,9 @@ defmodule BlockScout.Mixfile do
         blockscout: [
           applications: [
             block_scout_web: :permanent,
-            #ethereum_jsonrpc: :permanent,
-            #explorer: :permanent,
-            #indexer: :permanent
+            ethereum_jsonrpc: :permanent,
+            explorer: :permanent,
+            indexer: :permanent
           ]
         ]
       ]

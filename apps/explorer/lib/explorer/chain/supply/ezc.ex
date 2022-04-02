@@ -5,7 +5,6 @@ defmodule Explorer.Chain.Supply.EZC do
 
   use Explorer.Chain.Supply
   alias HTTPoison.{Error, Response}
-  alias Explorer.Repo
 
   @last_update_key :circulating_time
   @cache_name :circulating

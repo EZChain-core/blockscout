@@ -6,7 +6,7 @@ defmodule BlockScoutWeb.ChainController do
   alias BlockScoutWeb.{ChainView, Controller}
   alias Explorer.{Chain, PagingOptions, Repo}
   alias Explorer.Chain.{Address, Block, Transaction}
-  alias Explorer.Chain.Supply.{RSK, TokenBridge}
+  alias Explorer.Chain.Supply.{RSK, TokenBridge, EZC}
   alias Explorer.Chain.Transaction.History.TransactionStats
   alias Explorer.Counters.AverageBlockTime
   alias Explorer.ExchangeRates.Token
@@ -18,6 +18,7 @@ defmodule BlockScoutWeb.ChainController do
     total_gas_usage = Chain.total_gas_usage()
     block_count = Chain.block_estimated_count()
     address_count = Chain.address_estimated_count()
+    {:ok, circulating_supply} = EZC.circulating()
 
     market_cap_calculation =
       case Application.get_env(:explorer, :supply) do
@@ -57,7 +58,8 @@ defmodule BlockScoutWeb.ChainController do
       transactions_path: recent_transactions_path(conn, :index),
       transaction_stats: transaction_stats,
       block_count: block_count,
-      gas_price: Application.get_env(:block_scout_web, :gas_price)
+      gas_price: Application.get_env(:block_scout_web, :gas_price),
+      circulating_supply: circulating_supply,
     )
   end
 

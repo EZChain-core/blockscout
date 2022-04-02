@@ -47,7 +47,7 @@ defmodule Explorer.Chain.Supply.EZC do
           {:error, "Source unknown response"}
       end
     else
-      fetch_from_cache(@cache_name)
+      {:ok, fetch_from_cache(@cache_name)}
     end
 
   end

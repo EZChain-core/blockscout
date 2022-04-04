@@ -155,7 +155,7 @@
             <span class="dashboard-banner-network-stats-label">
               <%= gettext "Circulating supply" %>
             </span>
-            <span class="dashboard-banner-network-stats-value" data-selector="address-count">
+            <span class="dashboard-banner-network-stats-value" data-selector="circulating-count">
               <%= BlockScoutWeb.Cldr.Number.to_string!(@circulating_supply, format: "#,###") %>
             </span>
           </div>

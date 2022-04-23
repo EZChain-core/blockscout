@@ -20,11 +20,10 @@ defmodule Explorer.ExchangeRates.Source.EZC do
     id = json_data["id"]
     btc_value = nil #get_btc_value(id, market_data)
 
-    circulating_supply_data = market_data && market_data["circulating_supply"]
+    circulating_supply_data = market_data && market_data["circulating_supply"] + (market_data["vesting"] |> Decimal.new |> Decimal.to_float || 0)
     total_supply_data = market_data && market_data["total_supply"]
     market_cap_data_usd = market_data && market_data["market_cap"]
     total_volume_data_usd = market_data && market_data["total_volume"]
-
     [
       %Token{
         available_supply: to_decimal(circulating_supply_data),

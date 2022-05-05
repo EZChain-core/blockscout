@@ -63,7 +63,7 @@ defmodule BlockScoutWeb.LayoutView do
   end
 
   def network_title do
-    Keyword.get(application_config(), :network) || "EZChain" #"POA"
+    Keyword.get(application_config(), :network) || "CChain" #"POA"
   end
 
   defp application_config do

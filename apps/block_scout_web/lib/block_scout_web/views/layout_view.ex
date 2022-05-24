@@ -7,17 +7,12 @@ defmodule BlockScoutWeb.LayoutView do
 
   import BlockScoutWeb.AddressView, only: [from_address_hash: 1]
 
-  @issue_url "https://github.com/EZChain-core/ezchain-cchain-explorer/issues/new"
+  @issue_url "https://github.com/FCChain-core/ezchain-cchain-explorer/issues/new"
   @default_other_networks [
     %{
-      title: "EZChain Mainnet",
-      url: "https://cchain-explorer.ezchain.com"
+      title: "FastContractChain Mainnet",
+      url: "https://fcc-cchain-explorer.ezchain.com"
     },
-    %{
-      title: "EZChain Testnet",
-      url: "https://testnet-cchain-explorer.ezchain.com",
-      test_net?: true
-    }
     # %{
     #   title: "POA",
     #   url: "https://blockscout.com/poa/core"
@@ -59,7 +54,7 @@ defmodule BlockScoutWeb.LayoutView do
   end
 
   def subnetwork_title do
-    Keyword.get(application_config(), :subnetwork) || "EZChain" #"Sokol"
+    Keyword.get(application_config(), :subnetwork) || "FastContractChain" #"Sokol"
   end
 
   def network_title do

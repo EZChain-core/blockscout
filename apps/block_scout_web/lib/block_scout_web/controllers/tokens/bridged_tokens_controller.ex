@@ -40,7 +40,7 @@ defmodule BlockScoutWeb.BridgedTokensController do
   def show(conn, %{"id" => "roi"}) do
     render(conn, "index.html",
       current_path: Controller.current_full_path(conn),
-      chain: "EZChain",
+      chain: "FastContractChain",
       chain_id: Integer.parse(System.get_env("CHAIN_ID")),
       destination: :roi
     )

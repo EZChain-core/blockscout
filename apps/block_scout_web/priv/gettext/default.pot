@@ -427,7 +427,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/block_scout_web/templates/layout/_footer.html.eex:20
-msgid "EZChain CChain Explorer is a tool for inspecting and analyzing EVM based blockchains. Blockchain explorer for EZChain C-Chain."
+msgid "FastContractChain CChain Explorer is a tool for inspecting and analyzing EVM based blockchains. Blockchain explorer for FastContractChain C-Chain."
 msgstr ""
 
 #, elixir-format
@@ -1012,7 +1012,7 @@ msgstr ""
 #: lib/block_scout_web/templates/smart_contract/_functions.html.eex:89 lib/block_scout_web/templates/smart_contract/_functions.html.eex:89
 #: lib/block_scout_web/templates/smart_contract/_functions.html.eex:126
 msgid "ETH"
-msgstr "EZC"
+msgstr "FCC"
 
 #, elixir-format
 #: lib/block_scout_web/templates/api_docs/eth_rpc.html.eex:4
@@ -1242,7 +1242,7 @@ msgstr ""
 #, elixir-format
 #: lib/block_scout_web/templates/chain/show.html.eex:52
 #: lib/block_scout_web/views/block_view.ex:21 lib/block_scout_web/views/wei_helpers.ex:77
-msgid "wEZC"
+msgid "wFCC"
 msgstr "wei"
 
 #, elixir-format

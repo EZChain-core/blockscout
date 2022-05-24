@@ -26,12 +26,12 @@ config :logger,
     # only :explorer, but all levels
     {LoggerFileBackend, :explorer},
     # only :indexer, but all levels
-    {LoggerFileBackend, :indexer},
-    {LoggerFileBackend, :indexer_token_balances},
-    {LoggerFileBackend, :token_instances},
+    # {LoggerFileBackend, :indexer},
+    # {LoggerFileBackend, :indexer_token_balances},
+    # {LoggerFileBackend, :token_instances},
     {LoggerFileBackend, :reading_token_functions},
     {LoggerFileBackend, :pending_transactions_to_refetch},
-    {LoggerFileBackend, :empty_blocks_to_refetch}
+    # {LoggerFileBackend, :empty_blocks_to_refetch}
   ]
 
 
@@ -39,14 +39,14 @@ config :logger, :console,
   # Use same format for all loggers, even though the level should only ever be `:error` for `:error` backend
   format: "$dateT$time $metadata[$level] $message\n",
   metadata:
-    ~w(application fetcher request_id first_block_number last_block_number missing_block_range_count missing_block_count
+    ~w(application request_id first_block_number last_block_number missing_block_range_count missing_block_count
        block_number step count error_count shrunk import_id transaction_id)a
 
 config :logger, :ecto,
   # Use same format for all loggers, even though the level should only ever be `:error` for `:error` backend
   format: "$dateT$time $metadata[$level] $message\n",
   metadata:
-    ~w(application fetcher request_id first_block_number last_block_number missing_block_range_count missing_block_count
+    ~w(application request_id first_block_number last_block_number missing_block_range_count missing_block_count
        block_number step count error_count shrunk import_id transaction_id)a,
   metadata_filter: [application: :ecto]
 
@@ -55,7 +55,7 @@ config :logger, :error,
   format: "$dateT$time $metadata[$level] $message\n",
   level: :error,
   metadata:
-    ~w(application fetcher request_id first_block_number last_block_number missing_block_range_count missing_block_count
+    ~w(application request_id first_block_number last_block_number missing_block_range_count missing_block_count
        block_number step count error_count shrunk import_id transaction_id)a
 
 # Import environment specific config. This must remain at the bottom

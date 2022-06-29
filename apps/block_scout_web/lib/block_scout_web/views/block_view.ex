@@ -18,7 +18,7 @@ defmodule BlockScoutWeb.BlockView do
       |> Kernel.||(0)
       |> BlockScoutWeb.Cldr.Number.to_string!()
 
-    unit_text = gettext("wFCC")
+    unit_text = gettext("wROI")
 
     "#{average} #{unit_text}"
   end

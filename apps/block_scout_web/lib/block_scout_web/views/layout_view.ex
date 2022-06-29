@@ -10,8 +10,8 @@ defmodule BlockScoutWeb.LayoutView do
   @issue_url "https://github.com/FCChain-core/ezchain-cchain-explorer/issues/new"
   @default_other_networks [
     %{
-      title: "FastContractChain Mainnet",
-      url: "https://fcc-cchain-explorer.ezchain.com"
+      title: "ROIChain Testnet",
+      url: "https://roiscan.org"
     },
     # %{
     #   title: "POA",
@@ -54,7 +54,7 @@ defmodule BlockScoutWeb.LayoutView do
   end
 
   def subnetwork_title do
-    Keyword.get(application_config(), :subnetwork) || "FastContractChain" #"Sokol"
+    Keyword.get(application_config(), :subnetwork) || "ROIChain" #"Sokol"
   end
 
   def network_title do
